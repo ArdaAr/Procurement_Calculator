@@ -2,7 +2,7 @@ import streamlit as st
 import pickle
 import numpy as np
 
-gradient_boost = pickle.load(open('rekomendasi_GB_minyak_200524.pkl', 'rb'))
+# gradient_boost = pickle.load(open('rekomendasi_GB_minyak_200524.pkl', 'rb'))
 log_reg = pickle.load(open('rekomendasi_LR_minyak_200524.pkl', 'rb'))
 scaler = pickle.load(open('scaler_rekomendasi_minyak_minmax_200524.pkl', 'rb'))
 
@@ -25,7 +25,7 @@ with container1:
     )
     confidence_level_prediksi = st.number_input("**Masukkan Probabilitas Prediksi Trend Minyak**")
 
-    if st.button('**Predict Trend Harga Minyak/CPO**'):
+    if st.button('**Rekomendasi Pembelian Minyak**'):
         budget_vs_est_deal = (harga_minyak-budget)/budget
         penawaran_vs_MA = (harga_minyak-moving_average_30)/moving_average_30
         last_buy_vs_est_deal = (harga_minyak-last_buy)/last_buy
@@ -42,7 +42,7 @@ with container1:
         if recommendation == 1:
             if jumlah_sisa_po > 400000:
                 # print("Rekomendasi: Tidak Beli")
-                st.success(f"Rekomendasi: **HOLD (TIDAK BELI)**")
+                st.error(f"Rekomendasi: **HOLD (TIDAK BELI)**")
             elif confidence_level > 0.8:
                 st.success(f"Rekomendasi: BELI ")
                 st.success(f"Rekomendasi Quantity: BELI QUANTITY BANYAK")
@@ -58,7 +58,7 @@ with container1:
                 st.success(f"BELI QUANTITY SEDIKIT")
                 # print("Beli Quantity Sedikit")
             else:
-                st.success(f"Rekomendasi: **HOLD (TIDAK BELI)**")
+                st.error(f"Rekomendasi: **HOLD (TIDAK BELI)**")
         st.success(f"Confidence level prediksi adalah: {confidence_level*100}%")
                 # print("Rekomendasi: ", recommendation)
                 # print("Confidence level prediksi adalah: ",confidence_level)

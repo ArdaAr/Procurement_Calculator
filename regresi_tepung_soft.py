@@ -19,8 +19,10 @@ with container1:
 
 
     if st.button('Predict harga penawaran Tepung Terigu Soft'):
-        prediksi_harga_penawaran = model_tepung.predict(([[bursa, usd]]))                          
+        prediksi_harga_penawaran = model_tepung.predict(([[bursa, usd]]))
+        error_model = 3996                     
         
         # st.subheader(f"Prediksi harga penawaran dari bursa `{bursa}` adalah: ")
         prediksi_include = round(prediksi_harga_penawaran[0], 2)
-        st.success(f"Prediksi harga penawaran dari bursa `{bursa}` adalah: Rp. {prediksi_include},-")
+        st.success(f"Prediksi Harga Penawaran dari bursa `{bursa}` adalah: Rp. {prediksi_include},-")
+        st.success(f"Prediksi Harga Negosiasi dari bursa `{bursa}` adalah: Rp. {prediksi_include - error_model},-")

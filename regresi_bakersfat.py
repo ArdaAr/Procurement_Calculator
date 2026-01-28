@@ -6,6 +6,9 @@ model_bakersfat = pickle.load(open('regresi_tepung_soft.sav', 'rb'))
 
 container1 = st.container()
 
+intercept = -161397.505484519
+x_variable = 103.987049819106
+
 with container1:
 
     prediksi_harga_penawaran = ''
@@ -16,8 +19,8 @@ with container1:
 
 
     if st.button('Predict harga penawaran Bakersfat'):
-        prediksi_harga_penawaran = model_bakersfat.predict(([[bursa]]))                          
+        prediksi_harga_penawaran = (bursa*x_variable)+intercept                          
         
         # st.subheader(f"Prediksi harga penawaran dari bursa `{bursa}` adalah: ")
-        prediksi_include = round(prediksi_harga_penawaran[0], 2)
-        st.success(f"Prediksi harga penawaran dari bursa `{bursa}` adalah: Rp. {prediksi_include},-")
+        prediksi_include = round(prediksi_harga_penawaran, 2)
+        st.success(f"Prediksi harga penawaran dari bursa `{bursa}` adalah: Rp. {round(prediksi_include/1.11,2)},-")
